@@ -1,0 +1,56 @@
+{
+    "name": "@traffic-orchestrator/client",
+    "version": "2.1.0",
+    "description": "Official Node.js client for Traffic Orchestrator license validation, management, and analytics",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "require": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "licensing",
+        "license-validation",
+        "traffic-orchestrator",
+        "api-client",
+        "saas"
+    ],
+    "author": "Traffic Orchestrator <support@trafficorchestrator.com>",
+    "license": "MIT",
+    "homepage": "https://trafficorchestrator.com/docs/sdks/node",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Traffic-Orchestrator/TO.git",
+        "directory": "packages/node-sdk"
+    },
+    "bugs": {
+        "url": "https://trafficorchestrator.com/contact"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "jose": "^5.2.0",
+        "node-fetch": "^3.3.2"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^4.0.18"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
