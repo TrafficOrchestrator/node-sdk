@@ -223,12 +223,14 @@ export class TrafficOrchestrator {
 
   /** List all licenses for the authenticated user. */
   async listLicenses(): Promise<License[]> {
+    this.requireApiKey('listLicenses')
     const data = await this.request<LicenseListResponse>('GET', '/portal/licenses')
     return data.licenses || []
   }
 
   /** Create a new license. */
   async createLicense(options: CreateLicenseOptions): Promise<License> {
+    this.requireApiKey('createLicense')
     return this.request<License>('POST', '/portal/licenses', options)
   }
 
@@ -271,17 +273,20 @@ export class TrafficOrchestrator {
   // ── API Keys ──────────────────────────────────────────────────────────────
 
   /** List all API keys for the authenticated user. */
-  async listApiKeys(): Promise<{ keys: Array<{ id: string; name: string; prefix: string; created_at: string }> }> {
+  async listApiKeys(): Promise<{
+    this.requireApiKey('listApiKeys') keys: Array<{ id: string; name: string; prefix: string; created_at: string }> }> {
     return this.request('GET', '/portal/api-keys')
   }
 
   /** Create a new API key. */
-  async createApiKey(name: string, scopes: string[] = ['read']): Promise<{ id: string; key: string; name: string }> {
+  async createApiKey(name: string, scopes: string[] = ['read']): Promise<{
+    this.requireApiKey('createApiKey') id: string; key: string; name: string }> {
     return this.request('POST', '/portal/api-keys', { name, scopes })
   }
 
   /** Delete an API key. */
-  async deleteApiKey(keyId: string): Promise<{ success: boolean }> {
+  async deleteApiKey(keyId: string): Promise<{
+    this.requireApiKey('deleteApiKey') success: boolean }> {
     return this.request('DELETE', `/portal/api-keys/${keyId}`)
   }
 
@@ -299,6 +304,7 @@ export class TrafficOrchestrator {
 
   /** Get detailed analytics for a specified number of days. */
   async getAnalytics(days: number = 30): Promise<Record<string, unknown>> {
+    this.requireApiKey('getAnalytics')
     return this.request('GET', `/portal/analytics?days=${days}`)
   }
 
@@ -309,6 +315,7 @@ export class TrafficOrchestrator {
    * Available on all plans. Returns uptime percentage, avg latency, and compliance status.
    */
   async getSLA(days: number = 30): Promise<SLAData> {
+    this.requireApiKey('getSla')
     return this.request<SLAData>('GET', `/portal/sla?days=${days}`)
   }
 
